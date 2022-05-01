@@ -1,5 +1,6 @@
+// import { useMoralisCloudFunction } from "react-moralis";
 
-Moralis.Cloud.define("getTransactions",async(request) => {
+Moralis.Cloud.define("getTransactions", async(request) => {
     const logger = Moralis.Cloud.getLogger();
     const address = request.params.address.toLowerCase();
     const squery = new Moralis.Query("_AddressSyncStatus");
@@ -8,6 +9,7 @@ Moralis.Cloud.define("getTransactions",async(request) => {
 
     if(Number(queryCount) <= 0) {
         await Moralis.Cloud.run("watchEthAdress", {address: address, sync_historical: true}, {useMasterKey: true});
+        // const { fetch, data, error, isLoading, isFetching} = useMoralisCloudFunction("getEthTransactions", {address: watchAddress});
     }
     logger.info(await squery.count());
 

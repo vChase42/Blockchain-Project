@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { useMoralis } from "react-moralis";
+import { useMoralis, useMoralisCloudFunction } from "react-moralis";
 
 function App() {
 
@@ -25,6 +25,11 @@ function App() {
       await logout();
       console.log("logged out");
     }
+
+    // const address = request.params.address.toLowerCase();
+    
+    const { fetch, data, error, isLoading, isFetching} = useMoralisCloudFunction("watchEthAdress", {address: account} );
+    console.log(user);
 
   return (
     <div>
