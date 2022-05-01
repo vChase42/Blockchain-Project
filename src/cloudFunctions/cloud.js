@@ -11,5 +11,15 @@ Moralis.Cloud.define("getTransactions",async(request) => {
     }
     logger.info(await squery.count());
 
+    const query1 = new Moralis.Query("EthTransactions")
+    query1.equalTo("from_address", address);
     
-})
+    const query2 = new Moralis.Query("EithTransactions");
+    query2.equalTo("to_address", address);
+    
+    const query = Moralis.Query.or(query1, query2);
+    query.descending("block_number");
+    query.withCount();
+    const results = await query.find();
+    return (synced: true, results: results);
+});
